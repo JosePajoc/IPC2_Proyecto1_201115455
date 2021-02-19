@@ -20,3 +20,4 @@ while opcion!=6:
         print('Introducción a la programación y computación 2, sección "A"')
         print("Ingenieria en Ciencias y Sistemas")
         print("4to. Semestre")
+print("prueba")
