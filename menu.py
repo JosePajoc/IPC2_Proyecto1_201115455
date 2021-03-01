@@ -18,7 +18,6 @@ while opcion!=6:
         separador()
         ruta = input("Ingrese la ruta del archivo XML: ")
         infoXML = archivoXML(ruta)
-        infoXML.verDatos()
     elif opcion == 2:
         separador()
         print("Procesando archivo XML")
