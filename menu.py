@@ -1,3 +1,4 @@
+from manejoXML import archivoXML
 opcion = 0
 
 def separador():
@@ -13,11 +14,19 @@ while opcion!=6:
     print("\t5. Generar gráfica")
     print("\t6. Salida")
     opcion = int(input("\nIngrese el número de opción: "))
-    if opcion==4:
+    if opcion == 1:
+        separador()
+        ruta = input("Ingrese la ruta del archivo XML: ")
+        infoXML = archivoXML(ruta)
+        infoXML.verDatos()
+    elif opcion == 2:
+        separador()
+        print("Procesando archivo XML")
+        infoXML.ProcesarArchivo()
+    elif opcion == 4:
         separador()
         print("José Ernesto Pajoc Raymundo")
         print("201115455")
         print('Introducción a la programación y computación 2, sección "A"')
         print("Ingenieria en Ciencias y Sistemas")
         print("4to. Semestre")
-print("prueba")
