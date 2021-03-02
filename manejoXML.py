@@ -28,7 +28,7 @@ class archivoXML():                                                 #Creando cla
             col = int(matriz.attrib.get('m'))
             print('Las filas son: ', fil, ' las columnas son ', col)
             dimensiones = (fil, col)
-            matrizEntrada = np.zeros(dimensiones)
+            matrizEntrada = np.zeros(dimensiones)                   #Matrices creadas con dimensiones
             matrizPatrones = np.zeros(dimensiones)
             for dato in matriz:
                 #print(dato.text)                                    #-----------> QUITAR
@@ -55,12 +55,27 @@ class archivoXML():                                                 #Creando cla
                 filasRepetidas.append(texto[:len(texto)-1])         #Agregando a la lista de filas repetidas sin la , extra usando slice
                 texto = ''
             print(filasRepetidas)
+            print('---------------------->')
             filasUnicas = []                                        #Listas para filas únicas
             for elemento in filasRepetidas:
                 if elemento not in filasUnicas:                     #Si no existe el dato se agrega
                     filasUnicas.append(elemento)
             print(filasUnicas)
             print('---------------------->')
+            filasNuevas = len(filasUnicas)                          #Número de filas para dar nuevas dimensiones a la matriz reducida
+            dimensiones = (filasNuevas, col)
+            matrizReducida = np.zeros(dimensiones)                  #Creando matriz reducida con dimensiones necesarias
+            indice = 0                                              #Índoce para las filas de la matriz reducida
+            for unicas in filasUnicas:                              #Recorriendo lista de filas únicas
+                if len(unicas)==1:                                  #si solo hay una fila única se agrega a la matriz reducida
+                    matrizReducida[indice] = matrizEntrada[int(unicas)]
+                else:
+                    separadorFilas = unicas.split(',')              #extrayendo filas que se repiten
+                    for ele in separadorFilas:                      #usando filas repetidas para suma 
+                        for j in range(col):                        #Recorrer columnas
+                            matrizReducida[indice][j] = matrizReducida[indice][j] + matrizEntrada[int(ele)][j]
+                indice = indice + 1
+            print(matrizReducida)
 
 
 
