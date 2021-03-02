@@ -41,6 +41,7 @@ class listaCircular(object):                        #Creando clase para la lista
                 auxiliar = auxiliar.siguienteNodo   #El auxiliar toma el valor de su siguiente apuntador, se recorre la lista de dos en dos
             predecesor.siguienteNodo = auxiliar.siguienteNodo #Al salir del ciclo el predecesor toma el apuntador del auxiliar de esta forma se obtine el nodo siguiente y se deja de hacer referencia a auxiliar, en otras palabras predecesor se salta al nodo que tiene el dato
 
+
     def recorrerLista(self):
         if self.verVacio():
             return
@@ -49,6 +50,7 @@ class listaCircular(object):                        #Creando clase para la lista
         while auxiliar.siguienteNodo != self.cabeza:
             auxiliar = auxiliar.siguienteNodo
             print(auxiliar.dato)
+    
     
     def tamanoLista(self):
         auxiliar = self.cabeza
