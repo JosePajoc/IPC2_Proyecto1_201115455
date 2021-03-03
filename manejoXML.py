@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET                                  #importando libreria
 import numpy as np                                                  #Instalar en la terminal con pip install numpy
+from claseListaCircular import listaCircular                        #importando la clase lista circular enlazada
 
 class archivoXML():                                                 #Creando clase para el archivo XML
     documentoXML = None                                             #Variable para el archivo XML
@@ -20,6 +21,8 @@ class archivoXML():                                                 #Creando cla
     def ProcesarArchivo(self):                                      #Obtener atributos de cada matriz
         global documentoXML
         global matricesRaiz
+        global nuevaLista
+        nuevaLista = listaCircular()                                #Creando lista circular
         sublista = []                                               #Lista para extraer cada dato
         indice = 0                                                  #índice para recorrer sublista
         for matriz in matricesRaiz:                                 #Recorriendo etiqueta "matriz"
@@ -76,6 +79,11 @@ class archivoXML():                                                 #Creando cla
                             matrizReducida[indice][j] = matrizReducida[indice][j] + matrizEntrada[int(ele)][j]
                 indice = indice + 1
             print(matrizReducida)
+             
+            nuevaLista.agregarFinalLista(matriz.attrib.get('nombre'), matrizReducida) #Creando nodo y agregando a la lista circular simple
+        print('------------------------------------------>')
+        print("El número de matrices en la lista es ", nuevaLista.tamanoLista())
+        nuevaLista.recorrerLista()                                  #-----------> QUITAR
 
 
 
