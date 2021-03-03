@@ -7,16 +7,16 @@ class archivoXML():                                                 #Creando cla
     matricesRaiz = None                                             #Variable para la etiqueta matrices
 
     def __init__(self, ruta):                                       #En el constructor se pide ruta
+        #Variables globales
         global documentoXML
         global matricesRaiz
+        global nuevaLista
         try:
             documentoXML = ET.parse(ruta)                           #Conviritendo a legible
             matricesRaiz = documentoXML.getroot()                   #Obteniendo la raíz
-            print(matricesRaiz)                                     #-----------> QUITAR
-            print("Carga éxitosa...")
+            print("\nCarga éxitosa...")
         except:
-            print("Error al cargar archivo...")
-
+            print("\nError al cargar archivo...")
 
     def ProcesarArchivo(self):                                      #Obtener atributos de cada matriz
         global documentoXML
@@ -26,6 +26,7 @@ class archivoXML():                                                 #Creando cla
         sublista = []                                               #Lista para extraer cada dato
         indice = 0                                                  #índice para recorrer sublista
         for matriz in matricesRaiz:                                 #Recorriendo etiqueta "matriz"
+            print('_________________________________________________________________')
             print('Nombre de la matriz: ', matriz.attrib.get('nombre'))       #nombre matriz
             fil = int(matriz.attrib.get('n'))
             col = int(matriz.attrib.get('m'))
@@ -45,9 +46,9 @@ class archivoXML():                                                 #Creando cla
                         matrizPatrones[i][j] = 1
                     indice = indice + 1
             
-            print('Matriz de entrada')                 
+            print('\nMatriz de entrada')                 
             print(matrizEntrada)
-            print('Matriz de frecuencia')
+            print('\nMatriz de frecuencia')
             print(matrizPatrones)
             filasRepetidas = []                                     #lista para filas repetidas
             texto = ''                                              
@@ -57,14 +58,16 @@ class archivoXML():                                                 #Creando cla
                         texto = texto + str(j) +  ','
                 filasRepetidas.append(texto[:len(texto)-1])         #Agregando a la lista de filas repetidas sin la , extra usando slice
                 texto = ''
-            print(filasRepetidas)
+            #print(filasRepetidas)                                   #-----------> QUITAR
             print('---------------------->')
             filasUnicas = []                                        #Listas para filas únicas
             for elemento in filasRepetidas:
                 if elemento not in filasUnicas:                     #Si no existe el dato se agrega
                     filasUnicas.append(elemento)
+            print('A continuación, se muestran agrupadas las filas que se repiten en frecuencia como también las filas únicas')
             print(filasUnicas)
             print('---------------------->')
+            #Proceso de suma para las filas repetidas
             filasNuevas = len(filasUnicas)                          #Número de filas para dar nuevas dimensiones a la matriz reducida
             dimensiones = (filasNuevas, col)
             matrizReducida = np.zeros(dimensiones)                  #Creando matriz reducida con dimensiones necesarias
@@ -78,12 +81,22 @@ class archivoXML():                                                 #Creando cla
                         for j in range(col):                        #Recorrer columnas
                             matrizReducida[indice][j] = matrizReducida[indice][j] + matrizEntrada[int(ele)][j]
                 indice = indice + 1
+            print('\nLa matriz reducida es: ')
             print(matrizReducida)
-             
-            nuevaLista.agregarFinalLista(matriz.attrib.get('nombre'), matrizReducida) #Creando nodo y agregando a la lista circular simple
+
+            #Para crear nodo se necesita los parametros:  nuevaLista(nombre de la matriz, matriz reducida, vector de filas únicas) 
+            nuevaLista.agregarFinalLista(matriz.attrib.get('nombre'), matrizReducida, filasUnicas) #Creando nodo y agregando a la lista circular simple
         print('------------------------------------------>')
-        print("El número de matrices en la lista es ", nuevaLista.tamanoLista())
-        nuevaLista.recorrerLista()                                  #-----------> QUITAR
+        print("\nEl número de matrices en la lista circular es ", nuevaLista.tamanoLista())
+        print('------------------------------------------>')
+    
+    def escribirXML(self):
+        print("\nCreando archivo XML...")
+        print('_________________________________________________________________')
+        #print('\nIngrese la ruta')
+        nuevaLista.crearXML()
+        print('Los datos exportados al archivo XML son')
+        nuevaLista.recorrerLista()                                  #Ver datos de la lista circular simple                  
 
 
 

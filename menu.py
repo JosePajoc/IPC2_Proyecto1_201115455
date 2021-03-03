@@ -1,5 +1,7 @@
 from manejoXML import archivoXML
 opcion = 0
+carga = False
+proceso = False
 
 def separador():
     print("---------------------------------------------------------------")
@@ -17,11 +19,15 @@ while opcion!=6:
     if opcion == 1:
         separador()
         ruta = input("Ingrese la ruta del archivo XML: ")
-        infoXML = archivoXML(ruta)
-    elif opcion == 2:
+        infoXML = archivoXML(ruta)                                  #Creación de objeto tipo archivoXML
+        carga = True
+    elif opcion == 2 and carga:
         separador()
         print("Procesando archivo XML")
         infoXML.ProcesarArchivo()
+        proceso = True
+    elif opcion == 3 and carga and proceso:
+        infoXML.escribirXML()
     elif opcion == 4:
         separador()
         print("José Ernesto Pajoc Raymundo")
@@ -29,3 +35,6 @@ while opcion!=6:
         print('Introducción a la programación y computación 2, sección "A"')
         print("Ingenieria en Ciencias y Sistemas")
         print("4to. Semestre")
+    else:
+        print('\nRevisar que se haya cargado  y procesado correctamente el archivo XML...')
+    
