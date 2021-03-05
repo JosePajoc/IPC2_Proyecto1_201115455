@@ -35,6 +35,8 @@ while opcion!=6:
         print('Introducción a la programación y computación 2, sección "A"')
         print("Ingenieria en Ciencias y Sistemas")
         print("4to. Semestre")
+    elif opcion == 5 and carga and proceso:
+        infoXML.generarGrafica()
     else:
         print('\nRevisar que se haya cargado  y procesado correctamente el archivo XML...')
     

@@ -91,12 +91,18 @@ class archivoXML():                                                 #Creando cla
         print('------------------------------------------>')
     
     def escribirXML(self):
+        ruta = input("\nIngrese la ruta donde desea crear el archivo XML, no olvide colocar al final de la ruta el nombre y extensión")
+        print('_________________________________________________________________')
         print("\nCreando archivo XML...")
         print('_________________________________________________________________')
         #print('\nIngrese la ruta')
-        nuevaLista.crearXML()
+        nuevaLista.crearXML(ruta)
         print('Los datos exportados al archivo XML son')
-        nuevaLista.recorrerLista()                                  #Ver datos de la lista circular simple                  
+        nuevaLista.recorrerLista()                                  #Ver datos de la lista circular simple  
+        print('_________________________________________________________________')                
 
+    def generarGrafica(self):
+        print('El gráfico se creará en la carpeta raíz del proyecto')
+        nuevaLista.crearGrafo()
 
 

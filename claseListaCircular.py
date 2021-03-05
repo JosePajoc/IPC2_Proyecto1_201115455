@@ -42,7 +42,7 @@ class listaCircular(object):                            #Creando clase para la l
             print('Filas que se repetian en frecuencia')
             print(auxiliar.filasUnicas)   
     
-    def tamanoLista(self):
+    def tamanoLista(self):                              #Ver cantidad de nodos en la lista circular
         auxiliar = self.cabeza
         conteo = 0
         while auxiliar is not None:
@@ -53,19 +53,19 @@ class listaCircular(object):                            #Creando clase para la l
                 auxiliar = auxiliar.siguienteNodo
         return conteo
 
-    def crearXML(self):
-        salidaXML = open('nombre.xml','w')
-        if self.verVacio():
+    def crearXML(self, ruta):
+        salidaXML = open(ruta,'w')
+        if self.verVacio():                             #Verificar que la lista no este vacía
             return
         auxiliar = self.cabeza
         
-        n = len(auxiliar.matriz)
+        n = len(auxiliar.matriz)                        #Obteniendo datos de las matrices
         m = len(auxiliar.matriz[0])
         g = len(auxiliar.filasUnicas)
-        #Encabezado
+        #Encabezado del archivo plano
         salidaXML.write('<matriz nombre="' + auxiliar.nombre + '" n="' + str(n) + '" m="' + str(m) + '" g="' + str(g) + '">\n')
         #Datos
-        for x in range(n):
+        for x in range(n):                              #Concatenando datos de la matriz con cadenas de texto
             for y in range(m):
                 salidaXML.write('<dato x="' + str(x+1) + '" y="' + str(y+1) + '">' + str(auxiliar.matriz[x][y]) + '</dato>\n')
         #Frecuencias
@@ -100,4 +100,7 @@ class listaCircular(object):                            #Creando clase para la l
             #Fin matriz
             salidaXML.write('</matriz>\n')
 
-        salidaXML.close()
+        salidaXML.close()                               #Cierre del flujo para el archivo plano
+    
+    def crearGrafo(self):
+        print('Creando el grafo...')
