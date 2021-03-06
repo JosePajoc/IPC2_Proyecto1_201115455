@@ -99,8 +99,63 @@ class listaCircular(object):                            #Creando clase para la l
                     salidaXML.write('<frecuencia g="' + str(g+1) + '">' + str(len(tamano)) + '</frecuencia>\n')
             #Fin matriz
             salidaXML.write('</matriz>\n')
-
         salidaXML.close()                               #Cierre del flujo para el archivo plano
     
     def crearGrafo(self):
         print('Creando el grafo...')
+        salidaGrafo = open('grafo.dot', 'w')
+        if self.verVacio():                             #Verificar que la lista no este vacía
+            return
+        auxiliar = self.cabeza
+        n = len(auxiliar.matriz)                        #Obteniendo datos de las matrices
+        m = len(auxiliar.matriz[0])
+        #Encabezado del archivo plano
+        salidaGrafo.write('digraph ' + auxiliar.nombre + '{\n')
+        salidaGrafo.write('\tnombreMatriz [label="' + auxiliar.nombre + '"]\n')
+        salidaGrafo.write('\tdimensiones [label="dimensiones"]\n')
+        salidaGrafo.write('\tn [label="n = '+ str(n) + '"]\n')
+        salidaGrafo.write('\tm [label="m = '+ str(m) + '"]\n')
+        salidaGrafo.write('\tdatos [label = "datos de la matriz"]\n')
+        salidaGrafo.write('\tnombreMatriz -> dimensiones -> {n , m, datos}\n')
+        #Filas según matriz
+        for filas in range(len(auxiliar.matriz)):
+            salidaGrafo.write('\tdatos -> fila' + str(filas + 1) + '\n')
+            union = ''
+            #Uniendo nodos con etiquetas 
+            for columnas in range(len(auxiliar.matriz[filas])):
+                salidaGrafo.write('\tnodo' + str(filas) + str(columnas) + ' [label="' + str(auxiliar.matriz[filas][columnas]) + '"]\n')
+            #Uniendo nodos según su fila
+            for columnas in range(len(auxiliar.matriz[filas])):
+                union = union + 'nodo' + str(filas) + str(columnas) + ' -> '
+            salidaUnion = union[:(len(union)-3)]
+            salidaGrafo.write('\tfila' + str(filas + 1) + ' -> ' + salidaUnion  + '\n')
+        
+        dif = 500      
+        while auxiliar.siguienteNodo != self.cabeza:
+            auxiliar = auxiliar.siguienteNodo
+            n = len(auxiliar.matriz)
+            m = len(auxiliar.matriz[0])
+            #Encabezado del archivo plano
+            salidaGrafo.write('\n')
+            salidaGrafo.write('\tnombreMatriz' + str(dif) +'[label="' + auxiliar.nombre + '"]\n')
+            salidaGrafo.write('\tdimensiones' + str(dif) + ' [label="dimensiones"]\n')
+            salidaGrafo.write('\tn' + str(dif) + ' [label="n = '+ str(n) + '"]\n')
+            salidaGrafo.write('\tm' + str(dif) + ' [label="m = '+ str(m) + '"]\n')
+            salidaGrafo.write('\tdatos' + str(dif) + ' [label = "datos de la matriz"]\n')
+            salidaGrafo.write('\tnombreMatriz'+ str(dif) +' -> dimensiones'+ str(dif) +' -> {n'+ str(dif) +' , m'+ str(dif) +', datos'+ str(dif) +'}\n')
+            #Filas según matriz
+            for filas in range(len(auxiliar.matriz)):
+                salidaGrafo.write('\tdatos'+ str(dif) +' -> fila' + str(filas + 1) + str(dif) + '\n')
+                union = ''
+                #Uniendo nodos con etiquetas 
+                for columnas in range(len(auxiliar.matriz[filas])):
+                    salidaGrafo.write('\tnodo' + str(filas) + str(columnas)+ str(dif)  + ' [label="' + str(auxiliar.matriz[filas][columnas]) + '"]\n')
+                #Uniendo nodos según su fila
+                for columnas in range(len(auxiliar.matriz[filas])):
+                    union = union + 'nodo' + str(filas) + str(columnas)+ str(dif) + ' -> '
+                salidaUnion = union[:(len(union)-3)]
+                salidaGrafo.write('\tfila' + str(filas + 1)+ str(dif)  + ' -> ' + salidaUnion  + '\n')
+            dif = dif + 1
+        
+        salidaGrafo.write('}')
+        salidaGrafo.close()                               #Cierre del flujo para el archivo plano
