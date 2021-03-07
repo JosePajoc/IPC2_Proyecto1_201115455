@@ -1,4 +1,6 @@
 from io import open                                     #Importando libreria para crear archivo plano
+from graphviz import render                            #Importando módulo para renderizar desde python
+import time
 
 class nodo(object):                                     #Creando la clase nodo
     def __init__(self, nombre, matriz, filasUnicas):
@@ -58,7 +60,7 @@ class listaCircular(object):                            #Creando clase para la l
         if self.verVacio():                             #Verificar que la lista no este vacía
             return
         auxiliar = self.cabeza
-        
+    
         n = len(auxiliar.matriz)                        #Obteniendo datos de las matrices
         m = len(auxiliar.matriz[0])
         g = len(auxiliar.filasUnicas)
@@ -103,6 +105,7 @@ class listaCircular(object):                            #Creando clase para la l
     
     def crearGrafo(self):
         print('Creando el grafo...')
+        time.sleep(3)
         salidaGrafo = open('grafo.dot', 'w')
         if self.verVacio():                             #Verificar que la lista no este vacía
             return
@@ -159,3 +162,8 @@ class listaCircular(object):                            #Creando clase para la l
         
         salidaGrafo.write('}')
         salidaGrafo.close()                               #Cierre del flujo para el archivo plano
+
+        render('dot', 'png', 'grafo.dot')                 #Renderizar el archivo DOT escrito
+        print('Proceso finalizado...')
+        time.sleep(2)
+        
