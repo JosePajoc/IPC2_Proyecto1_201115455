@@ -1,5 +1,5 @@
-from io import open                                     #Importando libreria para crear archivo plano
-from graphviz import render                            #Importando módulo para renderizar desde python
+from io import open                                    #Importando libreria para crear archivo plano
+from graphviz import render                            #Importando módulo para renderizar desde python, agregar con pip
 import time
 
 class nodo(object):                                     #Creando la clase nodo
